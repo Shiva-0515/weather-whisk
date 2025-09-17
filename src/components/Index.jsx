@@ -202,6 +202,8 @@ export default function Index() {
   const [activeTab, setActiveTab] = useState("home");
   const [weather , setWeather] = useState(null);
   const [meals, setMeals] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
+  const [recipeIngredient, setRecipeIngredient] = useState("Explore");
   const [selectedMeal, setSelectedMeal] = useState(null);
 
   if (activeTab === "weather") {
@@ -222,9 +224,9 @@ export default function Index() {
             >
               ← Back to Home
             </button>
-            <h1 className="text-3xl font-bold text-white">Weather Now</h1>
+            <h1 className="text-3xl font-bold text-white">{selectedCity} Weather Now</h1>
           </div>
-           <WeatherSearch onWeatherFetched={setWeather} />
+           <WeatherSearch onWeatherFetched={setWeather} setSelectedCity = {setSelectedCity}/>
 
           {weather && <WeatherCard weather={weather} />}
         </div>
@@ -250,15 +252,15 @@ export default function Index() {
             >
               ← Back to Home
             </button>
-            <h1 className="text-3xl font-bold text-white">Recipe Ideas</h1>
+            <h1 className="text-3xl font-bold text-white">{recipeIngredient} Recipe Ideas</h1>
           </div>
           {/* Search bar */}
-          <RecipeSearch onMealsFetched={setMeals} />
+          <RecipeSearch onMealsFetched={setMeals} setRecipeIngredient={setRecipeIngredient} />
            
           {/* Grid and details */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-30 mt-4">
             {/* Recipe list */}
-            <div className="md:col-span-2">
+            <div className="md:col-span-3">
               <RecipeList meals={meals} onSelect={setSelectedMeal} />
             </div>
 

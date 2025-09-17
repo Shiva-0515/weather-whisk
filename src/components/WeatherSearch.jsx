@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function WeatherSearch({ onWeatherFetched }) {
+function WeatherSearch({ onWeatherFetched , setSelectedCity }) {
   const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -40,9 +40,11 @@ function WeatherSearch({ onWeatherFetched }) {
       };
 
       onWeatherFetched(weather);
+        setSelectedCity(name);
     } catch (err) {
       console.error(err);
       alert("Error fetching weather data");
+        setSelectedCity("Explore");
     }
 
     setLoading(false);

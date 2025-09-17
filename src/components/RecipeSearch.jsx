@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-function RecipeSearch({ onMealsFetched }) {
+function RecipeSearch({ onMealsFetched , setRecipeIngredient }) {
   const [ingredient, setIngredient] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
     if (!ingredient) return;
     setLoading(true);
-
+    
     try {
       const res = await fetch(
         `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
@@ -17,9 +17,10 @@ function RecipeSearch({ onMealsFetched }) {
       if (!data.meals) {
         alert("No recipes found!");
         onMealsFetched([]);
+        setRecipeIngredient("Explore");
       } else {
         onMealsFetched(data.meals);
-        console.log(data.meals);
+        setRecipeIngredient(ingredient);
       }
     } catch (err) {
       console.error(err);
